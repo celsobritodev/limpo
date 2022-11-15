@@ -17,33 +17,40 @@ import java.util.List;
 public class Console implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Integer numSerie;
+    private long  idConsole;
+    private String numSerie;
     private String nome;
     private String marca;
-   
     private BigDecimal valor;
-    
-    private List<Joystick> joystickList;
 
+    public long getIdConsole() {
+        return idConsole;
+    }
+
+    public void setIdConsole(long idConsole) {
+        this.idConsole = idConsole;
+    }
+   
     public Console() {
     }
 
-    public Console(Integer numSerie) {
+    public Console(String numSerie) {
         this.numSerie = numSerie;
     }
 
-    public Console(Integer numSerie, String nome, String marca, BigDecimal valor) {
+    public Console(long idConsole, String numSerie, String nome, String marca, BigDecimal valor) {
+        this.idConsole = idConsole;
         this.numSerie = numSerie;
         this.nome = nome;
         this.marca = marca;
         this.valor = valor;
     }
 
-    public Integer getNumSerie() {
+    public String getNumSerie() {
         return numSerie;
     }
 
-    public void setNumSerie(Integer numSerie) {
+    public void setNumSerie(String numSerie) {
         this.numSerie = numSerie;
     }
 
@@ -71,14 +78,7 @@ public class Console implements Serializable {
         this.valor = valor;
     }
 
-    public List<Joystick> getJoystickList() {
-        return joystickList;
-    }
-
-    public void setJoystickList(List<Joystick> joystickList) {
-        this.joystickList = joystickList;
-    }
-
+   
     @Override
     public int hashCode() {
         int hash = 0;

@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import modelo.Console;
 
@@ -22,8 +23,6 @@ import modelo.Console;
  */
 @WebServlet(name = "ConsoleCtl", urlPatterns = {"/console/ConsoleCtl"})
 public class ConsoleCtl extends HttpServlet {
-
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -38,11 +37,11 @@ public class ConsoleCtl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String acao = request.getParameter("action");
-        ConsoleDAO dao;
-        switch(acao){
+        ConsoleDAO consoleDao;
+        switch (acao) {
             case "list":
-                dao = new ConsoleDAO();
-                List<Console> lista = dao.listar();
+                consoleDao = new ConsoleDAO();
+                List<Console> lista = consoleDao.listar();
                 request.setAttribute("lista", lista);
                 break;
         }
@@ -61,7 +60,20 @@ public class ConsoleCtl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String numserie = request.getParameter("txtNumSerie");
+        String nome = request.getParameter("txtNome");
+        String marca = request.getParameter("txtMarca");
+        BigDecimal valor = new BigDecimal(request.getParameter("txtValor"));
+        // Monto meu objeto
+        Console console = new Console();
+        console.setNumSerie(numserie);
+        console.setMarca(marca);
+        console.setNome(nome);
+        console.setValor(valor);
+        // grava no banco
+        ConsoleDAO dao = new ConsoleDAO();
+
+        Boolean deuCerto = dao.salvar(console);
     }
 
     /**

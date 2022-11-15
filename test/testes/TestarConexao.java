@@ -8,16 +8,17 @@ import dao.Conexao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class TestaConexao {
+public class TestarConexao {
 
     public static void main(String[] args) {
         try {
             Connection conn = Conexao.getConexao();
             if (conn != null) {
-                System.out.println("tudo bem!");
+                System.out.println("Teste de conexão: Está tudo bem!");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Não foi possivel estabelecer conexão: "+e.getMessage());
         }
+      
     }
 }
