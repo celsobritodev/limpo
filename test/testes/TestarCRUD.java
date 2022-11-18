@@ -17,11 +17,30 @@ public class TestarCRUD {
 
     public static void main(String[] args) {
         //TestarListar();
-        //TestarInserir();
+      // TestarInserir();
         //TestarAlterar();
         //TestarPegarPorId(2);
-        TestarExcluirPorId(4);
+       // TestarExcluirPorId(7);
+        TestarListarPorFiltro();
+        
     }
+    
+   
+    public static void TestarListarPorFiltro() {
+        ConsoleDAO consoleDao = new ConsoleDAO();
+        ArrayList<Console> consoles = consoleDao.listarPorFiltro("CASA");
+        for (Console console : consoles) {
+            System.out.println("idConsole: " + console.getIdConsole());
+            System.out.println("Número de série: " + console.getNumSerie());
+            System.out.println("Nome: " + console.getNome());
+            System.out.println("Marca: " + console.getMarca());
+            System.out.println("Valor: " + console.getValor());
+            System.out.println("----------------------------------------------");
+
+        }
+
+    } 
+    
 
     public static void TestarExcluirPorId(long idConsole) {
         String mensagem;

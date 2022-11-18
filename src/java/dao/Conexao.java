@@ -17,10 +17,6 @@ public class Conexao {
     public static final String USER_PASSWD = "admin";
     public static Connection conn = null;
 
-    private Conexao() {
-
-    }
-
     public static Connection getConexao() throws SQLException {
         if (conn == null) {
             try {
@@ -33,10 +29,11 @@ public class Conexao {
         }
         return conn;
     }
-  
+
     public static void closeConexao() throws SQLException {
-        if (conn!=null) {
+        if (conn != null) {
             conn.close();
+            conn=null;
         }
     }
 }

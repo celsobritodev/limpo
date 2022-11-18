@@ -1,5 +1,3 @@
-
-
 <%@include file="../cabecalho.jsp" %>
 
 <div class="row">
@@ -27,12 +25,15 @@
         <div class="panel-body">
 
             <div class="alert ">
-                
+                  ${msg}
             </div>
-            <form action="#" method="post">
+            <form action="ConsoleCtl" method="post">
 
                 <div class="col-lg-6">
-
+                 <div class="form-group">
+                        <label>Numero de série</label>
+                        <input class="form-control" type="text"  name="txtNumSerie"  required />
+                    </div>
                     <div class="form-group">
                         <label>Nome</label>
                         <input class="form-control" type="text"  name="txtNome"  required />

@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/src/java/dao/GenericDAO.java</file>
-            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/src/java/modelo/Joystick.java</file>
+            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/web/home/index.jsp</file>
             <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/src/java/dao/Conexao.java</file>
-            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/test/testes/TestaConexao.java</file>
+            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/web/console/add.jsp</file>
+            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/web/index.html</file>
+            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/web/index.jsp</file>
             <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/src/java/modelo/Console.java</file>
-            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/web/cabecalho.jsp</file>
+            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/web/console/index.jsp</file>
+            <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/web/console/upd.jsp</file>
             <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/src/java/dao/ConsoleDAO.java</file>
             <file>file:/C:/Users/Celso/Documents/NetBeansProjects/Limpo/src/java/controle/ConsoleCtl.java</file>
         </group>

@@ -19,15 +19,16 @@ import modelo.Console;
  */
 public class ConsoleDAO {
 
-  
     public boolean excluir(long idConsole) {
         boolean isTransactionOk;
         try {
             Connection conexao = Conexao.getConexao();
             String sql = "delete from console where idconsole=?";
-            PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setLong(1, idConsole);
-            isTransactionOk=(!ps.execute());
+            try ( PreparedStatement ps = conexao.prepareStatement(sql)) {
+                ps.setLong(1, idConsole);
+                isTransactionOk = (ps.executeUpdate() > 0);
+            }
+            Conexao.closeConexao();
         } catch (SQLException e) {
             System.out.println("Erro ao excluir dados: " + e.getMessage());
             isTransactionOk = false;
@@ -41,24 +42,54 @@ public class ConsoleDAO {
         try {
             Connection conexao = Conexao.getConexao();
             String sql = "select * from console where idconsole = ?";
-            PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setLong(1, idConsole);
+            try ( PreparedStatement ps = conexao.prepareStatement(sql)) {
+                ps.setLong(1, idConsole);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    console = new Console();
+                    console.setIdConsole(rs.getLong("idconsole"));
+                    console.setNumSerie(rs.getString("numserie"));
+                    console.setNome(rs.getString("nome"));
+                    console.setMarca(rs.getString("marca"));
+                    BigDecimal valorConsole = new BigDecimal(rs.getString("valor"));
+                    console.setValor(valorConsole);
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                console = new Console();
-                console.setIdConsole(rs.getLong("idconsole"));
-                console.setNumSerie(rs.getString("numserie"));
-                console.setNome(rs.getString("nome"));
-                console.setMarca(rs.getString("marca"));
-                double valorConsole = Double.parseDouble(rs.getString("valor"));
-                console.setValor(new BigDecimal(valorConsole));
+                }
             }
+            Conexao.closeConexao();
         } catch (SQLException e) {
             System.out.println("Erro de SQL : " + e.getMessage());
         }
         return console;
     }
+    
+        // lista todos os consoles
+    public ArrayList<Console> listarPorFiltro(String filtro) {
+        ArrayList<Console> consoles = new ArrayList<>();
+        try {
+            Connection conexao = Conexao.getConexao();
+            String sql = "select * from console where nome like ?";
+            try ( PreparedStatement ps = conexao.prepareStatement(sql)) {
+                ps.setString(1, "%"+filtro+"%");  
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                 Console console = new Console();
+                 console.setIdConsole(rs.getLong("idconsole"));
+                 console.setNumSerie(rs.getString("numserie"));
+                 console.setNome(rs.getString("nome"));
+                 console.setMarca(rs.getString("marca"));
+                 BigDecimal valorConsole = new BigDecimal(rs.getString("valor"));
+                 console.setValor(valorConsole);
+                 consoles.add(console);
+                }
+            }
+            Conexao.closeConexao();
+        } catch (SQLException e) {
+            System.out.println("Erro de SQL : " + e.getMessage());
+        }
+        return consoles;
+    }
+    
 
     // lista todos os consoles
     public ArrayList<Console> listar() {
@@ -74,16 +105,20 @@ public class ConsoleDAO {
                 console.setNumSerie(rs.getString("numserie"));
                 console.setNome(rs.getString("nome"));
                 console.setMarca(rs.getString("marca"));
-                double valorConsole = Double.parseDouble(rs.getString("valor"));
-                console.setValor(new BigDecimal(valorConsole));
+                BigDecimal valorConsole = new BigDecimal(rs.getString("valor"));
+                console.setValor(valorConsole);
                 consoles.add(console);
+
             }
+            Conexao.closeConexao();
         } catch (SQLException e) {
             System.out.println("Erro de SQL : " + e.getMessage());
         }
         return consoles;
     }
 
+    
+    
     // salva um console
     public boolean salvar(Console console) {
         boolean isTransactionOk;
@@ -96,15 +131,18 @@ public class ConsoleDAO {
             } else {
                 sql = "UPDATE console SET numserie=?, nome=?, marca=?, valor=? where idconsole=?";
             }
-            PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setString(1, console.getNumSerie());
-            ps.setString(2, console.getNome());
-            ps.setString(3, console.getMarca());
-            ps.setBigDecimal(4, console.getValor());
-            if (!isInsertMode) {
-                ps.setLong(5, console.getIdConsole());
+            try ( PreparedStatement ps = conexao.prepareStatement(sql)) {
+                ps.setString(1, console.getNumSerie());
+                ps.setString(2, console.getNome());
+                ps.setString(3, console.getMarca());
+                ps.setBigDecimal(4, console.getValor());
+                if (!isInsertMode) {
+                    ps.setLong(5, console.getIdConsole());
+                }
+                isTransactionOk = (ps.executeUpdate() > 0);
             }
-           isTransactionOk=!ps.execute();
+            Conexao.closeConexao();
+
         } catch (SQLException e) {
             System.out.println("Erro ao inserir dados: " + e.getMessage());
             isTransactionOk = false;
